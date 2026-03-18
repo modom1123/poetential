@@ -1,0 +1,105 @@
+# WP Frame Search — Internal Tool
+
+Faceted internal search tool for Warby Parker frames, filterable by lens width, bridge, temple length, frame shape, and style book.
+
+## Files
+
+```
+index.html    ← entire app, no dependencies, no build step
+frames.json   ← frame data (edit this to add/update frames)
+README.md
+```
+
+---
+
+## Deploy in 3 steps (GitHub Pages)
+
+### 1. Create a new repo
+
+Go to github.com → New repository → name it something like `wp-frame-search` → Create.
+
+### 2. Push these files
+
+```bash
+git init
+git add .
+git commit -m "initial"
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/wp-frame-search.git
+git push -u origin main
+```
+
+### 3. Enable GitHub Pages
+
+Repo → Settings → Pages → Source: **Deploy from branch** → Branch: `main` / `/ (root)` → Save.
+
+Your app will be live at:
+`https://YOUR_USERNAME.github.io/wp-frame-search/`
+
+---
+
+## Adding frames
+
+### Option A — Edit frames.json (simplest)
+
+Open `frames.json`, add an entry following this shape:
+
+```json
+{
+  "name":      "Percey",
+  "sku":       "OPT-1042",
+  "lens":      51,
+  "bridge":    18,
+  "temple":    145,
+  "shape":     "Rectangle",
+  "colors":    ["Jet Black", "Whiskey Tortoise"],
+  "books":     ["Rectangle Book", "Heritage Book"],
+  "available": true,
+  "units":     4
+}
+```
+
+Valid `shape` values: `Rectangle`, `Round`, `Oval`, `Cat-eye`, `Square`
+
+Commit and push — GitHub Pages deploys automatically within ~60 seconds.
+
+### Option B — Use the in-app form
+
+Click **+ Add frame** in the top bar. Frames added this way are session-only unless you also connect Firestore (see below).
+
+---
+
+## Connect Firestore (optional — enables live data + persistent adds)
+
+1. Go to [console.firebase.google.com](https://console.firebase.google.com) → New project
+2. Add a **web app** → copy the `firebaseConfig` object
+3. In Firebase console → Firestore Database → Create database → Start in test mode
+4. In `index.html`, find the `FIREBASE SETUP` comment block and uncomment it
+5. Paste your config values where indicated
+6. Push — the app now reads from Firestore and the "+ Add frame" button writes to it
+
+Firestore rules for a team-internal tool (paste into Rules tab):
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /frames/{doc} {
+      allow read:  if true;
+      allow write: if request.auth != null;
+    }
+  }
+}
+```
+
+To seed Firestore with your existing frames, you can import `frames.json` via the Firebase console or run a one-time script.
+
+---
+
+## Customizing
+
+| What | Where |
+|---|---|
+| Add a new style book | Add the book name to a frame's `books` array in `frames.json` — the sidebar facet builds itself from the data |
+| Add a new frame shape | Add a path to the `SHAPES` object in `index.html` and add the option to the shape chip list |
+| Change location badge | Find `loc-badge` in `index.html` — it auto-updates to show the data source |
+| Adjust mm slider ranges | Find `RANGES` in the JS — change `lo`/`hi` values |
