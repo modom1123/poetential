@@ -1,0 +1,14 @@
+[
+  { "name": "Percey",   "sku": "OPT-1042", "lens": 51, "bridge": 18, "temple": 145, "shape": "Rectangle", "colors": ["Jet Black", "Whiskey Tortoise"],    "books": ["Rectangle Book", "Heritage Book"],       "available": true,  "units": 4 },
+  { "name": "Durand",   "sku": "OPT-2210", "lens": 47, "bridge": 20, "temple": 140, "shape": "Round",     "colors": ["Whiskey Tortoise", "Burnt Lemon"],  "books": ["Oval & Round Book", "Heritage Book"],    "available": true,  "units": 6 },
+  { "name": "Haskell",  "sku": "OPT-0881", "lens": 54, "bridge": 17, "temple": 145, "shape": "Rectangle", "colors": ["Striped Bottle", "Black Matte"],    "books": ["Rectangle Book", "Back to School"],      "available": false, "units": 0 },
+  { "name": "Crane",    "sku": "OPT-3304", "lens": 49, "bridge": 21, "temple": 148, "shape": "Cat-eye",   "colors": ["Rose Water", "Desert Khaki"],       "books": ["Summer Sun Book"],                       "available": true,  "units": 3 },
+  { "name": "Fillmore", "sku": "OPT-0556", "lens": 48, "bridge": 19, "temple": 145, "shape": "Square",    "colors": ["Jet Black", "Striped Bottle"],      "books": ["Rectangle Book"],                        "available": true,  "units": 2 },
+  { "name": "Tatum",    "sku": "OPT-4411", "lens": 50, "bridge": 16, "temple": 135, "shape": "Cat-eye",   "colors": ["Rose Water", "Jet Black"],          "books": ["Summer Sun Book", "Back to School"],     "available": true,  "units": 5 },
+  { "name": "Winston",  "sku": "OPT-0019", "lens": 53, "bridge": 20, "temple": 150, "shape": "Rectangle", "colors": ["Whiskey Tortoise", "Burnt Olive"],  "books": ["Rectangle Book", "Heritage Book"],       "available": false, "units": 0 },
+  { "name": "Toile",    "sku": "OPT-2897", "lens": 52, "bridge": 18, "temple": 143, "shape": "Oval",      "colors": ["Burnt Lemon", "Cinnamon"],          "books": ["Oval & Round Book", "Summer Sun Book"],  "available": true,  "units": 3 },
+  { "name": "Tate",     "sku": "OPT-3310", "lens": 46, "bridge": 22, "temple": 140, "shape": "Round",     "colors": ["Earthy Slate", "Kelp"],             "books": ["Oval & Round Book"],                     "available": true,  "units": 2 },
+  { "name": "Aldous",   "sku": "OPT-5501", "lens": 55, "bridge": 18, "temple": 148, "shape": "Rectangle", "colors": ["Matte Black", "Slate Crystal"],    "books": ["Heritage Book", "Back to School"],       "available": true,  "units": 4 },
+  { "name": "Piper",    "sku": "OPT-6612", "lens": 50, "bridge": 19, "temple": 140, "shape": "Cat-eye",   "colors": ["Rosewood", "Champagne Crystal"],    "books": ["Summer Sun Book"],                       "available": true,  "units": 3 },
+  { "name": "Colby",    "sku": "OPT-7723", "lens": 52, "bridge": 17, "temple": 145, "shape": "Square",    "colors": ["Jet Black", "Bark Crystal"],        "books": ["Rectangle Book"],                        "available": false, "units": 0 }
+]
