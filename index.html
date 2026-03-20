@@ -419,6 +419,19 @@
 </head>
 <body>
 
+<!-- PASSWORD GATE -->
+<div id="gate">
+  <div class="gate-logo">Mallory Odom</div>
+  <div class="gate-sub">Sr. PM Application · Warby Parker</div>
+  <div class="gate-box">
+    <div class="gate-label">Access code</div>
+    <input class="gate-input" type="password" id="gate-pw" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkGate()">
+    <button class="gate-btn" onclick="checkGate()">Continue →</button>
+    <div class="gate-error" id="gate-err"></div>
+  </div>
+  <div class="gate-hint">Shared privately · not for distribution</div>
+</div>
+
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">
@@ -785,6 +798,27 @@ const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+const GATE_PW = 'poetential';
+const GATE_KEY = 'wp_app_auth';
+
+function checkGate() {
+  const val = document.getElementById('gate-pw').value.trim();
+  if (val === GATE_PW) {
+    sessionStorage.setItem(GATE_KEY, '1');
+    document.getElementById('gate').classList.add('hidden');
+  } else {
+    const err = document.getElementById('gate-err');
+    err.textContent = 'Incorrect — try again.';
+    document.getElementById('gate-pw').value = '';
+    document.getElementById('gate-pw').focus();
+    setTimeout(() => err.textContent = '', 2500);
+  }
+}
+
+if (sessionStorage.getItem(GATE_KEY) === '1') {
+  document.getElementById('gate').classList.add('hidden');
+}
 </script>
 </body>
 </html>
