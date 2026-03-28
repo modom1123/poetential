@@ -415,6 +415,77 @@
     .closing-inner { grid-template-columns: 1fr; gap: 40px; }
     footer { flex-direction: column; gap: 8px; text-align: center; }
   }
+
+  /* MOBILE — gate */
+  @media (max-width: 600px) {
+    #gate {
+      padding: 48px 24px;
+    }
+    .gate-logo {
+      font-size: 22px;
+    }
+    .gate-input {
+      font-size: 16px; /* prevents iOS zoom on focus */
+      padding: 14px 16px;
+    }
+    .gate-btn {
+      padding: 14px;
+      font-size: 14px;
+    }
+  }
+
+  /* MOBILE — diagram: horizontal scroll with visual hint */
+  @media (max-width: 720px) {
+    .diagram-wrap {
+      padding: 24px 16px;
+      position: relative;
+    }
+    .diagram-wrap::after {
+      content: 'scroll to explore →';
+      display: block;
+      text-align: right;
+      font-size: 11px;
+      color: rgba(255,255,255,.35);
+      margin-top: 10px;
+      font-style: italic;
+    }
+    .diagram-wrap svg {
+      min-width: 680px;
+    }
+  }
+
+  /* MOBILE — roadmap: table becomes cards */
+  @media (max-width: 720px) {
+    .rt-wrap { border: none; background: transparent; }
+    .rt thead { display: none; }
+    .rt, .rt tbody, .rt tr, .rt td { display: block; width: 100%; }
+    .rt tr {
+      background: var(--white);
+      border: 1px solid var(--border-lt);
+      border-radius: 4px;
+      margin-bottom: 12px;
+      padding: 16px;
+      position: relative;
+    }
+    .rt tr:hover td { background: transparent; }
+    .rt td {
+      border: none;
+      padding: 0;
+      margin-bottom: 6px;
+    }
+    .rt td:last-child { margin-bottom: 0; }
+    .rt-num {
+      position: absolute;
+      top: 16px; right: 16px;
+      font-size: 20px;
+      color: var(--border);
+      width: auto;
+    }
+    .rt-name { font-size: 15px; padding-right: 32px; margin-bottom: 4px; }
+    .rt-desc { font-size: 12px; margin-bottom: 10px; }
+    .rt td[style*="text-align:center"] { text-align: left !important; display: inline-block; margin-right: 8px; }
+    .rt-score { font-size: 12px; }
+  }
 </style>
 </head>
 <body>
