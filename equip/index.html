@@ -6,18 +6,20 @@
   <title>Mallory Odom — Product Manager</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
+      --teal-deep:   #085041;
       --teal:        #0F6E56;
-      --teal-light:  #E1F5EE;
       --teal-mid:    #1D9E75;
+      --teal-light:  #E1F5EE;
       --ink:         #1C1C1A;
       --ink-muted:   #5A5A56;
       --ink-faint:   #9A9A94;
       --warm-white:  #FAF9F6;
+      --white:       #FFFFFF;
       --rule:        #E4E2DB;
       --serif:       'Lora', Georgia, serif;
       --sans:        'DM Sans', system-ui, sans-serif;
@@ -34,330 +36,404 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Layout ── */
-    .page {
+    /* ── Hero ── */
+    .hero {
+      background: var(--teal-deep);
+      width: 100%;
+      padding: 4rem 2rem 5rem;
+      opacity: 0;
+      animation: fadeIn .7s ease forwards;
+    }
+
+    .hero__inner {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .hero__nameplate {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .hero__name {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: .85rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+
+    .hero__dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #9FCFBE;
+      flex-shrink: 0;
+    }
+
+    .hero__title {
+      font-size: .85rem;
+      color: #9FCFBE;
+      font-weight: 300;
+    }
+
+    .hero__rule {
+      width: 40px;
+      height: 2px;
+      background: var(--teal-mid);
+      margin-bottom: 2rem;
+    }
+
+    .hero__pov {
+      font-family: var(--serif);
+      font-size: clamp(1.45rem, 3.5vw, 2rem);
+      line-height: 1.52;
+      color: #ffffff;
+      font-weight: 400;
+      max-width: 580px;
+    }
+
+    .hero__pov em {
+      font-style: italic;
+      color: #9FE1CB;
+    }
+
+    /* ── Content ── */
+    .content {
       max-width: 680px;
       margin: 0 auto;
       padding: 0 2rem;
     }
 
-    /* ── Nameplate ── */
-    .nameplate {
-      padding: 4rem 0 2.5rem;
+    /* ── Sections ── */
+    .section {
+      padding: 3.5rem 0;
+      border-bottom: 1px solid var(--rule);
       opacity: 0;
-      animation: fadeUp .6s ease forwards;
     }
 
-    .nameplate__name {
-      font-family: var(--sans);
+    .section.visible { animation: fadeUp .5s ease forwards; }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: .7rem;
       font-weight: 500;
-      font-size: .9rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1.5rem;
+    }
+
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 16px;
+      height: 2px;
+      background: var(--teal-mid);
+      flex-shrink: 0;
+    }
+
+    /* ── Why Equip ── */
+    .why__text {
+      font-size: 1.05rem;
+      color: var(--ink-muted);
+      line-height: 1.8;
+      max-width: 560px;
+    }
+
+    /* ── Proof cards ── */
+    .proof {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .proof-card {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-top: 3px solid var(--teal);
+      border-radius: 0 0 6px 6px;
+      padding: 1.5rem 1.75rem;
+      transition: box-shadow .2s ease, border-top-color .2s ease;
+    }
+
+    .proof-card:hover {
+      box-shadow: 0 4px 24px rgba(8,80,65,.07);
+      border-top-color: var(--teal-mid);
+    }
+
+    .proof-card__header {
+      display: flex;
+      align-items: baseline;
+      gap: .75rem;
+      margin-bottom: .75rem;
+      flex-wrap: wrap;
+    }
+
+    .proof-card__company {
+      font-size: .8rem;
+      font-weight: 500;
       letter-spacing: .08em;
       text-transform: uppercase;
       color: var(--teal);
     }
 
-    .nameplate__title {
-      font-size: .85rem;
-      color: var(--ink-muted);
-      margin-top: .25rem;
+    .proof-card__role {
+      font-size: .8rem;
+      color: var(--ink-faint);
       font-weight: 300;
     }
 
-    /* ── POV ── */
-    .pov {
-      padding: 2.5rem 2.25rem 3rem;
-      margin: 0 -2.25rem;
-      background: var(--teal-light);
-      border-top: none;
-      opacity: 0;
-      animation: fadeUp .6s ease .15s forwards;
-    }
-
-    .pov__text {
-      font-family: var(--serif);
-      font-size: 1.55rem;
-      line-height: 1.55;
-      color: var(--ink);
-      font-weight: 400;
-    }
-
-    .pov__text em {
-      font-style: italic;
-      color: var(--teal);
-    }
-
-    /* ── Section shared ── */
-    section {
-      padding: 2.5rem 0;
-      border-top: 1px solid var(--rule);
-      opacity: 0;
-    }
-
-    section.visible {
-      animation: fadeUp .5s ease forwards;
-    }
-
-    .section-label {
-      font-size: .75rem;
-      font-weight: 500;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--teal);
-      margin-bottom: 1.25rem;
-    }
-
-    /* ── Why Equip ── */
-    .why {
-      background: var(--teal-light);
-      padding: 2.5rem 2.25rem;
-      margin: 0 -2.25rem;
-      border-top: none;
-    }
-
-    .why p {
-      font-size: 1rem;
-      color: var(--ink-muted);
-      line-height: 1.75;
-    }
-
-    /* ── Proof points ── */
-    .proof {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
-
-    .proof-item {
-      padding-left: 1.25rem;
-      border-left: 3px solid var(--teal-light);
-      transition: border-color .2s ease;
-    }
-
-    .proof-item:hover {
-      border-left-color: var(--teal);
-    }
-
-    .proof-item__company {
-      font-size: .8rem;
-      font-weight: 500;
-      letter-spacing: .07em;
-      text-transform: uppercase;
-      color: var(--teal);
-      margin-bottom: .4rem;
-    }
-
-    .proof-item__role {
-      font-size: .8rem;
-      color: var(--ink-faint);
-      margin-bottom: .6rem;
-    }
-
-    .proof-item__copy {
+    .proof-card__copy {
       font-size: .95rem;
       color: var(--ink-muted);
       line-height: 1.75;
     }
 
-    /* ── Journey map CTA ── */
+    /* ── Artifact CTA ── */
     .artifact {
-      background: var(--teal-light);
+      background: var(--teal-deep);
       border-radius: 8px;
-      padding: 1.75rem 2rem;
+      padding: 2.25rem 2.25rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .artifact::before {
+      content: '';
+      position: absolute;
+      top: -50px; right: -50px;
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      background: rgba(29,158,117,.1);
+      pointer-events: none;
     }
 
     .artifact__label {
-      font-size: .75rem;
+      font-size: .7rem;
       font-weight: 500;
-      letter-spacing: .1em;
+      letter-spacing: .14em;
       text-transform: uppercase;
-      color: var(--teal);
-      margin-bottom: .6rem;
+      color: #9FCFBE;
+      margin-bottom: .75rem;
     }
 
     .artifact__heading {
       font-family: var(--serif);
-      font-size: 1.1rem;
-      color: var(--ink);
-      margin-bottom: .5rem;
+      font-size: 1.25rem;
+      color: #ffffff;
+      margin-bottom: .6rem;
       font-weight: 400;
+      line-height: 1.45;
+      max-width: 380px;
     }
 
     .artifact__sub {
       font-size: .875rem;
-      color: var(--ink-muted);
-      margin-bottom: 1.25rem;
+      color: #9FCFBE;
+      margin-bottom: 1.75rem;
       line-height: 1.65;
+      max-width: 460px;
     }
 
-    .artifact__link {
+    .artifact__btn {
       display: inline-flex;
       align-items: center;
-      gap: .4rem;
-      font-size: .875rem;
-      font-weight: 500;
-      color: var(--teal);
+      gap: .5rem;
+      background: var(--teal-mid);
+      color: #fff;
       text-decoration: none;
-      border-bottom: 1px solid var(--teal-mid);
-      padding-bottom: 1px;
-      transition: opacity .15s ease;
+      font-size: .85rem;
+      font-weight: 500;
+      padding: .7rem 1.4rem;
+      border-radius: 4px;
+      transition: background .15s ease, transform .1s ease;
     }
 
-    .artifact__link:hover { opacity: .7; }
+    .artifact__btn:hover {
+      background: #24b886;
+      transform: translateY(-1px);
+    }
 
-    .artifact__link svg {
-      width: 14px;
-      height: 14px;
-      stroke: currentColor;
-      fill: none;
+    .artifact__btn svg {
+      width: 14px; height: 14px;
+      stroke: currentColor; fill: none;
       stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      flex-shrink: 0;
+      stroke-linecap: round; stroke-linejoin: round;
     }
 
     /* ── Contact ── */
     .contact__links {
       display: flex;
       flex-wrap: wrap;
-      gap: 1.5rem;
+      gap: 1.75rem;
       align-items: center;
     }
 
     .contact__link {
       font-size: .875rem;
-      font-weight: 500;
+      font-weight: 400;
       color: var(--ink-muted);
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: .35rem;
-      transition: color .15s ease;
+      gap: .4rem;
+      padding-bottom: 2px;
+      border-bottom: 1px solid transparent;
+      transition: color .15s ease, border-color .15s ease;
     }
 
-    .contact__link:hover { color: var(--teal); }
+    .contact__link:hover {
+      color: var(--teal);
+      border-bottom-color: var(--teal-light);
+    }
 
     .contact__link svg {
-      width: 14px;
-      height: 14px;
-      stroke: currentColor;
-      fill: none;
+      width: 14px; height: 14px;
+      stroke: currentColor; fill: none;
       stroke-width: 1.75;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+      stroke-linecap: round; stroke-linejoin: round;
       flex-shrink: 0;
     }
 
     /* ── Footer ── */
     footer {
-      padding: 2.5rem 0 4rem;
+      padding: 2rem 2rem 3.5rem;
+      max-width: 680px;
+      margin: 0 auto;
       font-size: .75rem;
       color: var(--ink-faint);
     }
 
     /* ── Animations ── */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(12px); }
+      from { opacity: 0; transform: translateY(14px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
     /* ── Mobile ── */
-    @media (max-width: 480px) {
-      .pov__text { font-size: 1.25rem; }
-      .nameplate  { padding-top: 3rem; }
-      .pov, .why  { margin: 0 -2rem; padding-left: 2rem; padding-right: 2rem; }
+    @media (max-width: 520px) {
+      .hero { padding: 3rem 1.5rem 4rem; }
+      .content { padding: 0 1.5rem; }
+      .hero__dot { display: none; }
+      .proof-card { padding: 1.25rem; }
+      .artifact { padding: 1.75rem 1.5rem 1.5rem; }
     }
   </style>
 </head>
 <body>
-  <div class="page">
 
-    <!-- Nameplate -->
-    <header class="nameplate">
-      <p class="nameplate__name">Mallory Odom</p>
-      <!-- ✏️ FLAG: Adjust title descriptor if needed -->
-      <p class="nameplate__title">Product Manager — data platforms &amp; internal tooling</p>
-    </header>
-
-    <!-- POV -->
-    <div class="pov">
-      <p class="pov__text">
-        Data only drives better care when the people delivering that care can actually use it.
-        Most internal platforms are built for the people who built them —
-        not the clinicians, coordinators, and operators who need answers.
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero__inner">
+      <div class="hero__nameplate">
+        <span class="hero__name">Mallory Odom</span>
+        <span class="hero__dot"></span>
+        <!-- ✏️ FLAG: Adjust title descriptor if needed -->
+        <span class="hero__title">Product Manager — data platforms &amp; internal tooling</span>
+      </div>
+      <div class="hero__rule"></div>
+      <p class="hero__pov">
+        Data only drives better care when the people delivering that care
+        can actually use it. Most internal platforms are built for the
+        people who built them — not the clinicians, coordinators, and
+        operators who need answers.
         <em>Bridging that gap is the work I do.</em>
       </p>
     </div>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
 
     <!-- Why Equip -->
-    <section class="why">
+    <div class="section why">
       <p class="section-label">Why Equip</p>
-      <!-- ✏️ FLAG: This paragraph is intentionally written in your voice — edit freely to make it feel more personal or specific -->
-      <p>
+      <!-- ✏️ FLAG: Edit freely — this should feel personal to you -->
+      <p class="why__text">
         Equip's ability to scale depends on more than clinical excellence.
-        It depends on the teams behind it — therapists, care coordinators, operations leads —
-        having reliable access to the information that shapes every decision they make.
-        That problem, getting the right data to the right people in a form they can actually act on,
-        is where I've built my career. It's also the most important infrastructure problem
-        a growing care organization can solve.
+        It depends on the teams behind it — therapists, care coordinators,
+        operations leads — having reliable access to the information that
+        shapes every decision they make. That problem, getting the right
+        data to the right people in a form they can actually act on, is
+        where I've built my career. It's also the most important
+        infrastructure problem a growing care organization can solve.
       </p>
-    </section>
+    </div>
 
-    <!-- Proof points -->
-    <section class="work">
+    <!-- The work -->
+    <div class="section work">
       <p class="section-label">The work</p>
       <div class="proof">
 
-        <div class="proof-item">
-          <p class="proof-item__company">IMPLAN</p>
-          <!-- ✏️ FLAG: Adjust role title to match resume -->
-          <p class="proof-item__role">Senior Product Manager — internal platform</p>
-          <p class="proof-item__copy">
-            Built a 0-to-1 internal operational platform for an organization whose users —
-            economists, policy analysts, and planners — needed complex data to drive real-world decisions.
-            The core challenge wasn't technical: it was designing a system that non-technical users
-            could trust and navigate independently, reducing reliance on the data team to answer
-            questions the platform should answer itself.
-            <!-- ✏️ FLAG: Add a specific outcome if you have one — adoption rate, ticket reduction, time-to-insight improvement, etc. -->
+        <div class="proof-card">
+          <div class="proof-card__header">
+            <span class="proof-card__company">IMPLAN</span>
+            <!-- ✏️ FLAG: Adjust role title to match resume -->
+            <span class="proof-card__role">Senior Product Manager — internal platform</span>
+          </div>
+          <p class="proof-card__copy">
+            Built a 0-to-1 internal operational platform for an organization
+            whose users — economists, policy analysts, and planners — needed
+            complex data to drive real-world decisions. The core challenge
+            wasn't technical: it was designing a system that non-technical
+            users could trust and navigate independently, reducing reliance
+            on the data team to answer questions the platform should answer itself.
+            <!-- ✏️ FLAG: Add a specific outcome — adoption rate, ticket reduction, time-to-insight improvement, etc. -->
           </p>
         </div>
 
-        <div class="proof-item">
-          <p class="proof-item__company">Leadventure</p>
-          <!-- ✏️ FLAG: Adjust role title to match resume -->
-          <p class="proof-item__role">Senior Product Manager — Tealium CDP &amp; data governance</p>
-          <p class="proof-item__copy">
-            Owned a customer data platform that sat at the center of how marketing and operations teams
-            collected, structured, and acted on data across the organization.
-            The real work was downstream: ensuring the data reaching business stakeholders was clean,
-            reliable, and usable without a data engineer in the room —
+        <div class="proof-card">
+          <div class="proof-card__header">
+            <span class="proof-card__company">Leadventure</span>
+            <!-- ✏️ FLAG: Adjust role title to match resume -->
+            <span class="proof-card__role">Senior Product Manager — Tealium CDP &amp; data governance</span>
+          </div>
+          <p class="proof-card__copy">
+            Owned a customer data platform at the center of how marketing
+            and operations teams collected, structured, and acted on data
+            across the organization. The real work was downstream: ensuring
+            the data reaching business stakeholders was clean, reliable,
+            and usable without a data engineer in the room —
             the same self-serve problem, applied to a different domain.
-            <!-- ✏️ FLAG: Add a specific outcome if you have one — stakeholder adoption, pipeline reliability improvement, etc. -->
+            <!-- ✏️ FLAG: Add a specific outcome — stakeholder adoption, pipeline reliability improvement, etc. -->
           </p>
         </div>
 
       </div>
-    </section>
+    </div>
 
     <!-- Journey map CTA -->
-    <section class="cta">
+    <div class="section cta">
       <div class="artifact">
         <p class="artifact__label">Prototype</p>
         <p class="artifact__heading">Here's how I'd think about the problem on day one.</p>
         <p class="artifact__sub">
-          A stakeholder journey map across Equip's clinical, operations, and data teams —
-          tracing where data access breaks down, and where a better internal analytics experience changes outcomes.
+          A stakeholder journey map across Equip's clinical, operations,
+          and analytics teams — tracing where data access breaks down,
+          and where a better internal analytics experience changes outcomes.
         </p>
-        <!-- ✏️ FLAG: Replace href with the actual journey map URL once built (/poetential/equip/ or similar) -->
-        <a class="artifact__link" href="#" target="_blank" rel="noopener">
+        <!-- ✏️ FLAG: Replace href with journey map URL once built -->
+        <a class="artifact__btn" href="#" target="_blank" rel="noopener">
           View the journey map
           <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
         </a>
       </div>
-    </section>
+    </div>
 
     <!-- Contact -->
-    <section class="contact">
+    <div class="section contact">
       <p class="section-label">Get in touch</p>
       <div class="contact__links">
 
@@ -367,7 +443,7 @@
           Resume
         </a>
 
-        <!-- ✏️ FLAG: Replace href with your LinkedIn URL -->
+        <!-- ✏️ FLAG: Replace with your LinkedIn URL -->
         <a class="contact__link" href="https://linkedin.com/in/YOURHANDLE" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
           LinkedIn
@@ -380,29 +456,24 @@
         </a>
 
       </div>
-    </section>
-
-    <footer>
-      <!-- ✏️ FLAG: Add password protection logic here if needed for the poetential hub -->
-      &copy; 2026 Mallory Odom
-    </footer>
+    </div>
 
   </div>
 
+  <footer>&copy; 2026 Mallory Odom</footer>
+
   <script>
-    // Scroll-triggered fade-in for sections
-    const sections = document.querySelectorAll('section');
-    const observer = new IntersectionObserver((entries) => {
+    const sections = document.querySelectorAll('.section');
+    const io = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
         if (entry.isIntersecting) {
-          entry.target.style.animationDelay = `${i * 0.05}s`;
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
+          setTimeout(() => entry.target.classList.add('visible'), i * 60);
+          io.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1 });
-
-    sections.forEach(s => observer.observe(s));
+    }, { threshold: 0.08 });
+    sections.forEach(s => io.observe(s));
   </script>
+
 </body>
 </html>
