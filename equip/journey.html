@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stakeholder Journey Map — Mallory Odom</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal-deep:  #085041;
+      --teal:       #0F6E56;
+      --teal-mid:   #1D9E75;
+      --teal-light: #E1F5EE;
+      --ink:        #1C1C1A;
+      --ink-muted:  #5A5A56;
+      --ink-faint:  #9A9A94;
+      --warm-white: #FAF9F6;
+      --white:      #FFFFFF;
+      --rule:       #E4E2DB;
+      --red-bg:     #FCEBEB;
+      --red-text:   #A32D2D;
+      --amber-bg:   #FAEEDA;
+      --amber-text: #854F0B;
+      --serif:      'Lora', Georgia, serif;
+      --sans:       'DM Sans', system-ui, sans-serif;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      background: var(--warm-white);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Hero ─── */
+    .hero {
+      background: var(--teal-deep);
+      width: 100%;
+      padding: 3.5rem 2rem 4rem;
+      opacity: 0;
+      animation: fadeIn .6s ease forwards;
+    }
+    .hero__inner { max-width: 720px; margin: 0 auto; }
+
+    .hero__back {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      font-size: .8rem;
+      color: #9FCFBE;
+      text-decoration: none;
+      margin-bottom: 2rem;
+      transition: color .15s ease;
+    }
+    .hero__back:hover { color: #fff; }
+    .hero__back svg {
+      width: 13px; height: 13px;
+      stroke: currentColor; fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    .hero__nameplate {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 2rem; flex-wrap: wrap;
+    }
+    @media (max-width: 600px) {
+      .hero__nameplate { flex-direction: column; align-items: flex-start; gap: .35rem; }
+      .hero__dot { display: none; }
+    }
+    .hero__name {
+      font-family: var(--sans); font-weight: 500;
+      font-size: .85rem; letter-spacing: .12em;
+      text-transform: uppercase; color: #fff;
+    }
+    .hero__dot {
+      width: 4px; height: 4px; border-radius: 50%;
+      background: #9FCFBE; flex-shrink: 0;
+    }
+    .hero__title { font-size: .85rem; color: #9FCFBE; font-weight: 300; }
+
+    .hero__rule { width: 40px; height: 2px; background: var(--teal-mid); margin-bottom: 1.5rem; }
+
+    .hero__pov {
+      font-family: var(--serif);
+      font-size: clamp(1.25rem, 3vw, 1.65rem);
+      line-height: 1.5; color: #fff; font-weight: 400;
+      max-width: 520px; margin-bottom: 1.25rem;
+    }
+    .hero__disclaimer {
+      font-size: .825rem; color: #9FCFBE; line-height: 1.65;
+      max-width: 520px; padding-left: 1rem;
+      border-left: 2px solid rgba(159,207,190,.35);
+      font-style: italic;
+    }
+
+    /* ─── Content ─── */
+    .content { max-width: 720px; margin: 0 auto; padding: 0 2rem 4rem; }
+
+    /* ─── Persona strip ─── */
+    .persona-section {
+      padding: 2.5rem 0 2rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .persona-label {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-size: .7rem; font-weight: 500; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--teal);
+      margin-bottom: .6rem;
+    }
+    .persona-label::before {
+      content: ''; display: block;
+      width: 16px; height: 2px; background: var(--teal-mid); flex-shrink: 0;
+    }
+    .persona-intro {
+      font-size: .875rem; color: var(--ink-muted);
+      margin-bottom: 1.5rem; line-height: 1.65; max-width: 560px;
+    }
+    .persona-intro strong { color: var(--ink); font-weight: 500; }
+
+    .persona-strip {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: .5rem;
+    }
+    .persona-strip::-webkit-scrollbar { display: none; }
+
+    .persona-step {
+      flex-shrink: 0;
+      width: 200px;
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-right: none;
+      padding: 1rem 1rem .9rem;
+      position: relative;
+      cursor: pointer;
+      transition: background .15s ease;
+    }
+    .persona-step:first-child { border-radius: 6px 0 0 6px; }
+    .persona-step:last-child  { border-right: 1px solid var(--rule); border-radius: 0 6px 6px 0; }
+
+    .persona-step:hover { background: var(--teal-light); }
+
+    .persona-step.active {
+      background: var(--teal-light);
+      border-color: var(--teal-mid);
+      border-right: 1px solid var(--teal-mid);
+      z-index: 1;
+    }
+    .persona-step.active + .persona-step { border-left: none; }
+
+    .persona-step__stage {
+      font-size: .65rem; font-weight: 500; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--teal);
+      margin-bottom: .35rem;
+    }
+    .persona-step__text {
+      font-size: .8rem; color: var(--ink-muted);
+      line-height: 1.55;
+    }
+    .persona-step__dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      margin-bottom: .5rem;
+    }
+    .persona-step__dot--bottleneck { background: #E24B4A; }
+    .persona-step__dot--high       { background: #EF9F27; }
+
+    /* Arrow connector between steps */
+    .persona-step:not(:last-child)::after {
+      content: '›';
+      position: absolute;
+      right: -8px; top: 50%;
+      transform: translateY(-50%);
+      font-size: .9rem;
+      color: var(--ink-faint);
+      z-index: 2;
+      pointer-events: none;
+    }
+    .persona-step.active::after { color: var(--teal-mid); }
+
+    /* ─── Stage navigator ─── */
+    .stage-nav-section { padding: 2rem 0 0; }
+    .stage-nav-label {
+      font-size: .7rem; font-weight: 500; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--teal);
+      margin-bottom: 1rem;
+      display: inline-flex; align-items: center; gap: .5rem;
+    }
+    .stage-nav-label::before {
+      content: ''; display: block;
+      width: 16px; height: 2px; background: var(--teal-mid); flex-shrink: 0;
+    }
+
+    .stage-nav {
+      display: flex; gap: .5rem;
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; padding-bottom: .25rem;
+    }
+    .stage-nav::-webkit-scrollbar { display: none; }
+
+    .stage-btn {
+      flex-shrink: 0;
+      display: flex; align-items: center; gap: .4rem;
+      padding: .45rem .9rem;
+      border: 1px solid var(--rule);
+      border-radius: 20px;
+      background: var(--white);
+      font-family: var(--sans); font-size: .8rem;
+      font-weight: 400; color: var(--ink-muted);
+      cursor: pointer; transition: all .15s ease; white-space: nowrap;
+    }
+    .stage-btn:hover { border-color: var(--teal-mid); color: var(--teal); }
+    .stage-btn.active {
+      background: var(--teal-deep); border-color: var(--teal-deep);
+      color: #fff; font-weight: 500;
+    }
+    .stage-btn__num { font-size: .68rem; opacity: .6; }
+    .stage-btn.active .stage-btn__num { opacity: .7; }
+
+    /* ─── Orientation bar ─── */
+    .orientation {
+      display: flex; align-items: center; gap: .5rem;
+      padding: 1.5rem 0 1.25rem;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 1.75rem;
+      flex-wrap: wrap;
+    }
+    .orientation__stage {
+      font-family: var(--serif);
+      font-size: 1.2rem; font-weight: 400; color: var(--ink);
+    }
+    .orientation__sep {
+      font-size: .9rem; color: var(--ink-faint);
+    }
+    .orientation__sub {
+      font-size: .875rem; color: var(--ink-faint);
+    }
+
+    /* ─── Team cards ─── */
+    .team-cards { display: flex; flex-direction: column; gap: 1.25rem; }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-top: 3px solid var(--teal);
+      border-radius: 0 0 6px 6px;
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeUp .35s ease forwards;
+    }
+    .card:nth-child(2) { animation-delay: .07s; }
+    .card:nth-child(3) { animation-delay: .14s; }
+
+    .card__header {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem .75rem; gap: 1rem;
+    }
+    .card__team {
+      font-size: .75rem; font-weight: 500;
+      letter-spacing: .09em; text-transform: uppercase; color: var(--teal);
+    }
+
+    /* ─── Friction badge ─── */
+    .badge {
+      font-size: .7rem; font-weight: 500; letter-spacing: .03em;
+      padding: .25rem .65rem; border-radius: 20px;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .badge--bottleneck { background: var(--red-bg);   color: var(--red-text);   }
+    .badge--high       { background: var(--amber-bg); color: var(--amber-text); }
+
+    /* ─── Clinical tier tabs ─── */
+    .tier-tabs {
+      display: flex;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .tier-tab {
+      flex: 1; padding: .55rem .5rem;
+      font-size: .75rem; font-weight: 400; color: var(--ink-faint);
+      background: none; border: none;
+      border-right: 1px solid var(--rule);
+      cursor: pointer; transition: all .15s ease;
+      font-family: var(--sans); line-height: 1.3; text-align: center;
+    }
+    .tier-tab:last-child { border-right: none; }
+    .tier-tab:hover { color: var(--teal); background: var(--teal-light); }
+    .tier-tab.active { color: var(--teal); font-weight: 500; background: var(--teal-light); }
+    .tier-tab__sub {
+      display: block; font-size: .65rem;
+      color: var(--ink-faint); font-weight: 300;
+      margin-top: .1rem; font-style: italic;
+    }
+    .tier-tab.active .tier-tab__sub { color: var(--teal); opacity: .7; }
+
+    /* ─── Tier definition strip ─── */
+    .tier-def {
+      background: var(--teal-light);
+      padding: .6rem 1.25rem;
+      font-size: .8rem; color: var(--teal);
+      line-height: 1.5; font-style: italic;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    /* ─── Card body ─── */
+    .card__body { padding: 1rem 1.25rem 1.25rem; }
+    .card__friction-row {
+      display: flex; align-items: center;
+      gap: .65rem; margin-bottom: .75rem;
+    }
+    .card__friction-label {
+      font-size: .7rem; font-weight: 500;
+      letter-spacing: .06em; text-transform: uppercase; color: var(--ink-faint);
+    }
+    .card__text { font-size: .9rem; color: var(--ink-muted); line-height: 1.75; }
+
+    /* ─── Legend ─── */
+    .legend {
+      display: flex; gap: 1.25rem; flex-wrap: wrap;
+      padding: 1.5rem 0 0;
+      border-top: 1px solid var(--rule); margin-top: 2rem;
+    }
+    .legend__item {
+      display: flex; align-items: center;
+      gap: .45rem; font-size: .75rem; color: var(--ink-muted);
+    }
+    .legend__dot {
+      width: 8px; height: 8px;
+      border-radius: 50%; flex-shrink: 0;
+    }
+    .legend__dot--bottleneck { background: #E24B4A; }
+    .legend__dot--high       { background: #EF9F27; }
+
+    /* ─── Animations ─── */
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── Mobile ─── */
+    @media (max-width: 520px) {
+      .hero { padding: 2.5rem 1.5rem 3rem; }
+      .content { padding: 0 1.5rem 3rem; }
+      .persona-step { width: 160px; }
+      .card__header { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero__inner">
+      <a class="hero__back" href="index.html">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        Back
+      </a>
+      <div class="hero__nameplate">
+        <span class="hero__name">Mallory Odom</span>
+        <span class="hero__dot"></span>
+        <span class="hero__title">Stakeholder journey map</span>
+      </div>
+      <div class="hero__rule"></div>
+      <p class="hero__pov">Where data access breaks down — and why it matters for care.</p>
+      <p class="hero__disclaimer">
+        This map is a hypothesis, not an audit — built from public information, the job description,
+        and pattern recognition from similar internal platform work.
+        The real version gets built after many conversations with stakeholders and the engineering team.
+      </p>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- Persona strip -->
+    <div class="persona-section">
+      <p class="persona-label">Sample journey</p>
+      <p class="persona-intro">
+        <strong>Alex is a care coordinator at Equip — an intermediate platform user.</strong>
+        She knows the analytics dashboard exists and can navigate basic reports,
+        but relies on the data team when questions get specific.
+        Follow her experience across all five stages.
+        <br><br>Click any stage below to jump there, or use the stage explorer beneath.
+      </p>
+      <div class="persona-strip" id="personaStrip"></div>
+    </div>
+
+    <!-- Stage explorer -->
+    <div class="stage-nav-section">
+      <p class="stage-nav-label">Explore all stakeholders by stage</p>
+      <nav class="stage-nav" id="stageNav"></nav>
+    </div>
+
+    <!-- Orientation bar -->
+    <div class="orientation" id="orientation"></div>
+
+    <!-- Team cards -->
+    <div id="teamCards" class="team-cards"></div>
+
+    <!-- Legend -->
+    <div class="legend">
+      <div class="legend__item">
+        <span class="legend__dot legend__dot--bottleneck"></span>
+        Bottleneck — complete barrier to progress
+      </div>
+      <div class="legend__item">
+        <span class="legend__dot legend__dot--high"></span>
+        High friction — significant slowdown or uncertainty
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const tierDefs = {
+      beginner:     'New to the analytics platform — typically submits requests or asks colleagues for data rather than accessing it directly.',
+      intermediate: 'Familiar with standard dashboards and basic reports — can navigate independently but hits a wall on specific or cross-dimensional questions.',
+      experienced:  'Power user — comfortable pulling complex queries and interpreting multi-variable outputs, but still dependent on the data team for non-standard requests.'
+    };
+
+    const tierShort = {
+      beginner:     'Requests data',
+      intermediate: 'Uses dashboards',
+      experienced:  'Power user'
+    };
+
+    const alexJourney = [
+      { stage: 'Need',      friction: 'high',        text: 'Alex notices patients in her caseload seem to disengage more on Mondays. She wants to know if it\'s a real pattern — or just her perception.' },
+      { stage: 'Access',    friction: 'high',        text: 'The dashboard doesn\'t have a day-of-week filter. She submits a data request and waits.' },
+      { stage: 'Interpret', friction: 'high',        text: 'Three days later, a spreadsheet arrives. The columns aren\'t labeled in clinical terms. She spends 20 minutes trying to decode it before giving up.' },
+      { stage: 'Act',       friction: 'bottleneck',  text: 'She raises the concern at team meeting from memory, with no data to back it. The conversation is inconclusive.' },
+      { stage: 'Follow Up', friction: 'high',        text: 'No way to track whether the pattern persists. She stops checking. The question disappears.' }
+    ];
+
+    const stages = [
+      {
+        name: 'Need',
+        sub: 'A question arises that requires data',
+        clinical: {
+          beginner:     { friction: 'bottleneck', text: 'A question surfaces mid-session: "Is my patient\'s trajectory normal?" With no quick way to answer and no obvious entry point to the data system, the question gets shelved or escalated — often never revisited.' },
+          intermediate: { friction: 'high',       text: 'A recurring pattern noticed across the caseload — they want to validate it with data. But it\'s unclear which tool to use, or whether the question is even answerable within existing systems. The energy to ask the question dissipates before it\'s formed.' },
+          experienced:  { friction: 'high',       text: 'A well-formed strategic question for a payer report or clinical review. The question is clear — but the data to answer it isn\'t self-serviceable. A ticket gets submitted and the queue begins, adding latency to a decision that has real clinical stakes.' }
+        },
+        operations: { friction: 'high',       text: 'A capacity or scheduling question spans multiple systems. No unified view exists — the question can\'t be answered from one place, requiring data from scheduling, EMR, and billing to be assembled separately.' },
+        analytics:  { friction: 'high',       text: 'A vague, urgent request lands — often missing context about what decision it\'s meant to inform. An estimated 60–70% of time before analysis begins is spent clarifying scope with the requestor rather than doing the actual work.' }
+      },
+      {
+        name: 'Access',
+        sub: 'Finding or requesting the right data',
+        clinical: {
+          beginner:     { friction: 'bottleneck', text: 'No self-serve path exists. The only option is to ask a colleague or submit a formal request — typically a 2–5 day wait. By the time the answer arrives, the clinical moment that prompted the question has passed.' },
+          intermediate: { friction: 'high',       text: 'Knows a dashboard exists but lacks the right filters or permissions to get to the specific answer needed. Gets a partial answer — enough to seem resolved, not enough to act on.' },
+          experienced:  { friction: 'high',       text: 'Has some direct access, but edge-case or cross-dimensional questions still require custom pulls. Even experienced clinical users create bottleneck demand for questions that shouldn\'t require escalation.' }
+        },
+        operations: { friction: 'bottleneck', text: 'Operational data lives across scheduling, EMR, and billing with no unified access layer. A complete operational picture requires manual merging across systems or submitting multiple requests — neither of which happens quickly.' },
+        analytics:  { friction: 'bottleneck', text: 'Full raw data access, but wrangling and cleaning consumes most of the time before any insight work begins. The analytics team functions as the access layer for the entire organization — making them reactive by default.' }
+      },
+      {
+        name: 'Interpret',
+        sub: 'Making sense of what the data shows',
+        clinical: {
+          beginner:     { friction: 'bottleneck', text: 'Receives a spreadsheet or chart with no clinical context attached. Without the interpretive bridge, the data doesn\'t connect to patient reality — outputs are ignored, misread, or trigger a second round of clarifying requests.' },
+          intermediate: { friction: 'high',       text: 'Can read basic charts and trend lines, but struggles with multi-variable or probabilistic outputs. Low confidence in interpretation leads to delayed or heavily hedged decisions, often defaulting to clinical intuition over the data they requested.' },
+          experienced:  { friction: 'high',       text: 'Comfortable with summary-level data, but needs additional context around statistical significance or population-level comparisons. Relies on the data team to validate before acting — adding a dependency loop that slows decision velocity.' }
+        },
+        operations: { friction: 'high',       text: 'Can read operational metrics in isolation but can\'t connect them to clinical outcomes. A high no-show rate is visible — what\'s driving it isn\'t. Interpretation stops at the symptom level because the infrastructure doesn\'t support root cause analysis.' },
+        analytics:  { friction: 'high',       text: 'The team routinely writes narrative summaries explaining what outputs mean before stakeholders can act on them. Interpretation work that should live inside the platform lives in the team instead — a scalability problem that grows with every new stakeholder.' }
+      },
+      {
+        name: 'Act',
+        sub: 'Making a decision based on the data',
+        clinical: {
+          beginner:     { friction: 'bottleneck', text: 'In many cases, no action gets taken at all — the data journey ended before a usable answer was produced. The clinical question gets answered by intuition or not at all, which is precisely what the platform was meant to prevent.' },
+          intermediate: { friction: 'high',       text: 'Acts on data but with low confidence — often appending disclaimers or seeking peer confirmation before moving forward. Uncertainty about interpretation creates friction between the insight and the action it was meant to inform.' },
+          experienced:  { friction: 'high',       text: 'Acts decisively but spends meaningful time pre-validating data interpretations with the analytics team before committing — an unnecessary dependency loop that creates drag on clinical decision-making and consumes analytics bandwidth.' }
+        },
+        operations: { friction: 'high',       text: 'Staffing and scheduling decisions get made on incomplete or stale data. The downstream impact — on patient capacity, clinician load, care continuity — isn\'t visible until a problem surfaces, by which point the cost of correction is higher.' },
+        analytics:  { friction: 'high',       text: 'Provides data that informs decisions but is rarely present when decisions are actually made. No visibility into how analysis is being used, which prevents the team from improving the quality or format of future outputs.' }
+      },
+      {
+        name: 'Follow Up',
+        sub: 'Understanding whether the action worked',
+        clinical: {
+          beginner:     { friction: 'bottleneck', text: 'No feedback loop exists. The question was answered, an action was taken (or wasn\'t), and the cycle ends. Learning doesn\'t accumulate — the same questions recur across clinicians and across time, with no shared institutional memory.' },
+          intermediate: { friction: 'high',       text: 'Informal check-ins happen but there\'s no systematic way to track outcomes against the original question. Improvements occur but aren\'t attributable — making it difficult to build on what worked or course-correct what didn\'t.' },
+          experienced:  { friction: 'high',       text: 'Attempts to track outcomes longitudinally, but tooling doesn\'t support it. Ends up maintaining personal spreadsheets or notes — meaningful at the individual level, invisible to the organization, and impossible to scale.' }
+        },
+        operations: { friction: 'high', text: 'KPIs get tracked in operational silos without connection to patient-level results. A change to scheduling protocols shows up as an ops metric improvement — but whether it improved care continuity or clinician retention is unknowable from the data available.' },
+        analytics:  { friction: 'high', text: 'Little visibility into whether the data produced led to a decision, action, or any change. Without a feedback loop, the team optimizes for output volume — reports delivered, requests completed — rather than outcomes influenced. Impact becomes unmeasurable.' }
+      }
+    ];
+
+    let activeStage = 0;
+    let activeTier  = 'intermediate';
+
+    const frictionLabels = { bottleneck: 'Bottleneck', high: 'High friction' };
+
+    function badge(f) {
+      return `<span class="badge badge--${f}">${frictionLabels[f]}</span>`;
+    }
+
+    function renderPersonaStrip() {
+      const strip = document.getElementById('personaStrip');
+      strip.innerHTML = alexJourney.map((step, i) => `
+        <div class="persona-step ${i === activeStage ? 'active' : ''}" data-i="${i}">
+          <div class="persona-step__dot persona-step__dot--${step.friction}"></div>
+          <p class="persona-step__stage">${step.stage}</p>
+          <p class="persona-step__text">${step.text}</p>
+        </div>
+      `).join('');
+      strip.querySelectorAll('.persona-step').forEach(el => {
+        el.addEventListener('click', () => {
+          activeStage = +el.dataset.i;
+          renderAll();
+        });
+      });
+    }
+
+    function renderNav() {
+      const nav = document.getElementById('stageNav');
+      nav.innerHTML = stages.map((s, i) => `
+        <button class="stage-btn ${i === activeStage ? 'active' : ''}" data-i="${i}">
+          <span class="stage-btn__num">${i + 1}</span>${s.name}
+        </button>
+      `).join('');
+      nav.querySelectorAll('.stage-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          activeStage = +btn.dataset.i;
+          renderAll();
+        });
+      });
+    }
+
+    function renderOrientation() {
+      const s = stages[activeStage];
+      document.getElementById('orientation').innerHTML = `
+        <span class="orientation__stage">${s.name}</span>
+        <span class="orientation__sep">—</span>
+        <span class="orientation__sub">${s.sub}</span>
+      `;
+    }
+
+    function renderCards() {
+      const s = stages[activeStage];
+      const tier = s.clinical[activeTier];
+
+      document.getElementById('teamCards').innerHTML = `
+        <div class="card">
+          <div class="card__header">
+            <span class="card__team">Clinical team</span>
+          </div>
+          <div class="tier-tabs" id="tierTabs">
+            ${['beginner','intermediate','experienced'].map(t => `
+              <button class="tier-tab ${t === activeTier ? 'active' : ''}" data-tier="${t}">
+                ${t.charAt(0).toUpperCase() + t.slice(1)}
+                <span class="tier-tab__sub">${tierShort[t]}</span>
+              </button>
+            `).join('')}
+          </div>
+          <div class="tier-def">${tierDefs[activeTier]}</div>
+          <div class="card__body">
+            <div class="card__friction-row">
+              <span class="card__friction-label">Friction</span>
+              ${badge(tier.friction)}
+            </div>
+            <p class="card__text">${tier.text}</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__header">
+            <span class="card__team">Operations team</span>
+            ${badge(s.operations.friction)}
+          </div>
+          <div class="card__body">
+            <p class="card__text">${s.operations.text}</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__header">
+            <span class="card__team">Data &amp; analytics team</span>
+            ${badge(s.analytics.friction)}
+          </div>
+          <div class="card__body">
+            <p class="card__text">${s.analytics.text}</p>
+          </div>
+        </div>
+      `;
+
+      document.querySelectorAll('.tier-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          activeTier = tab.dataset.tier;
+          renderCards();
+        });
+      });
+    }
+
+    function renderAll() {
+      renderPersonaStrip();
+      renderNav();
+      renderOrientation();
+      renderCards();
+    }
+
+    renderAll();
+  </script>
+
+</body>
+</html>
