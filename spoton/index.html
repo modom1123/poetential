@@ -575,6 +575,123 @@
     .cta-section { padding: 4rem 1.5rem; }
     footer { padding: 1.5rem; }
   }
+  /* ===== WSJF INTERACTIVE ===== */
+  .toggle-bar {
+    display: flex;
+    gap: 0;
+    margin-bottom: 1.25rem;
+    background: var(--white-10);
+    border-radius: 8px;
+    overflow: hidden;
+    width: fit-content;
+  }
+
+  .toggle-btn {
+    background: transparent;
+    color: var(--white-50);
+    border: none;
+    padding: 0.65rem 1.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.25s, color 0.25s;
+  }
+
+  .toggle-btn.active {
+    background: var(--blue);
+    color: var(--white);
+  }
+
+  .toggle-btn:hover:not(.active) {
+    background: var(--white-10);
+    color: var(--white-70);
+  }
+
+  .wsjf-table-wrap {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid var(--white-10);
+  }
+
+  .wsjf-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    min-width: 700px;
+  }
+
+  .wsjf-table thead {
+    background: rgba(255,255,255,0.06);
+  }
+
+  .wsjf-table th {
+    padding: 0.6rem 0.7rem;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--white-50);
+    border-bottom: 1px solid var(--white-10);
+  }
+
+  .wsjf-table th.feature-col { text-align: left; }
+
+  .wsjf-table td {
+    padding: 0.6rem 0.7rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: var(--white-90);
+    transition: background 0.3s;
+  }
+
+  .wsjf-table td.feature-cell {
+    text-align: left;
+    font-weight: 500;
+  }
+
+  .wsjf-table tbody tr {
+    transition: transform 0.4s ease, opacity 0.3s ease;
+  }
+
+  .wsjf-table tbody tr:hover {
+    background: rgba(59,130,246,0.08);
+  }
+
+  .wsjf-table .rank-num {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 0.95rem;
+    color: var(--blue);
+    width: 36px;
+  }
+
+  .wsjf-table .wsjf-score {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 0.95rem;
+    color: var(--green);
+  }
+
+  .wsjf-table .vote-count {
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  .wsjf-table .dim {
+    color: var(--white-50);
+  }
+
+  .wsjf-highlight {
+    background: rgba(59,130,246,0.1) !important;
+  }
+
+  @media (max-width: 768px) {
+    .toggle-bar { width: 100%; }
+    .toggle-btn { flex: 1; text-align: center; }
+  }
+
 </style>
 </head>
 <body>
@@ -587,6 +704,7 @@
   </div>
   <div class="nav-links">
     <a href="#experience">Experience</a>
+    <a href="#roadmap">Roadmap</a>
     <a href="#why">Why Me</a>
     <a href="#connect">Connect</a>
   </div>
@@ -762,6 +880,47 @@
   </div>
 </section>
 
+<!-- ===== ROADMAP METHODOLOGY ===== -->
+<div class="section-dark">
+  <div class="section-inner" id="roadmap">
+    <div class="section-label">How I build roadmaps</div>
+    <h2 class="section-headline">Votes are a signal. <span class="underline-blue">Weighted scoring</span> is the decision.</h2>
+    <p class="section-body">
+      I know SpotOn gives stakeholders the ability to vote on features — that's great because it builds transparency and buy-in. But voting alone can become a popularity contest. I layer data-driven prioritization methodologies on top to weigh each ask by business value, time criticality, and risk — so the roadmap reflects impact, not volume.
+    </p>
+    <p class="section-body" style="margin-bottom: 1.5rem; font-size: 0.92rem; color: var(--white-50);">
+      Toggle between views to see how the same features reorder when you move from raw votes to weighted scoring.
+    </p>
+
+    <div class="toggle-bar">
+      <button class="toggle-btn active" onclick="sortBy('votes')">Sort by Votes</button>
+      <button class="toggle-btn" onclick="sortBy('wsjf')">Sort by Weighted Score</button>
+    </div>
+
+    <div class="wsjf-table-wrap">
+      <table class="wsjf-table" id="wsjfTable">
+        <thead>
+          <tr>
+            <th class="rank-col">#</th>
+            <th class="feature-col">Dashboard Feature</th>
+            <th class="vote-col">Votes</th>
+            <th class="score-col">Biz Value</th>
+            <th class="score-col">Time Crit.</th>
+            <th class="score-col">Risk / Opp.</th>
+            <th class="score-col">Effort</th>
+            <th class="wsjf-col">Score</th>
+          </tr>
+        </thead>
+        <tbody id="wsjfBody"></tbody>
+      </table>
+    </div>
+
+    <p style="font-size: 0.78rem; color: var(--white-50); margin-top: 1rem; line-height: 1.5;">
+      Weighted Score = (Business Value + Time Criticality + Risk/Opportunity) ÷ Effort&nbsp;&nbsp;·&nbsp;&nbsp;Higher score = build first&nbsp;&nbsp;·&nbsp;&nbsp;Fibonacci scale (1, 2, 3, 5, 8, 13)&nbsp;&nbsp;·&nbsp;&nbsp;Sample data for illustration
+    </p>
+  </div>
+</div>
+
 <!-- ===== CTA ===== -->
 <section class="cta-section" id="connect">
   <h2 class="cta-headline">Ready to talk <span class="underline-blue">Dashboards</span>?</h2>
@@ -783,6 +942,55 @@
 <footer>
   Mallory Odom · Portland, OR · Built with a sh*t. Not a SpotOn product — just someone who wants to build one.
 </footer>
+
+<script>
+const features = [
+  { name: "Mobile dashboard redesign", votes: 47, bv: 8, tc: 5, ro: 3, js: 13 },
+  { name: "Customizable PDF report export", votes: 38, bv: 3, tc: 2, ro: 2, js: 2 },
+  { name: "Multi-location roll-up reporting", votes: 31, bv: 13, tc: 8, ro: 8, js: 8 },
+  { name: "AI-powered cost anomaly alerts", votes: 24, bv: 13, tc: 13, ro: 8, js: 5 },
+  { name: "Real-time labor vs. sales widget", votes: 19, bv: 8, tc: 8, ro: 5, js: 3 },
+  { name: "Integrated tip payout tracking", votes: 15, bv: 5, tc: 5, ro: 13, js: 3 },
+];
+
+features.forEach(f => { f.wsjf = Math.round(((f.bv + f.tc + f.ro) / f.js) * 10) / 10; });
+
+let currentSort = 'votes';
+
+function renderTable(sortKey) {
+  const sorted = [...features].sort((a, b) => sortKey === 'votes' ? b.votes - a.votes : b.wsjf - a.wsjf);
+  const tbody = document.getElementById('wsjfBody');
+  tbody.innerHTML = '';
+  sorted.forEach((f, i) => {
+    const tr = document.createElement('tr');
+    const isHighlight = sortKey === 'wsjf' && i === 0;
+    if (isHighlight) tr.classList.add('wsjf-highlight');
+    tr.innerHTML = `
+      <td class="rank-num">${i + 1}</td>
+      <td class="feature-cell">${f.name}</td>
+      <td class="${sortKey === 'votes' ? 'vote-count' : 'dim'}">${f.votes}</td>
+      <td>${f.bv}</td>
+      <td>${f.tc}</td>
+      <td>${f.ro}</td>
+      <td>${f.js}</td>
+      <td class="wsjf-score">${f.wsjf}</td>
+    `;
+    tr.style.opacity = '0';
+    tr.style.transform = 'translateY(8px)';
+    tbody.appendChild(tr);
+    setTimeout(() => { tr.style.opacity = '1'; tr.style.transform = 'translateY(0)'; }, 50 * (i + 1));
+  });
+}
+
+function sortBy(key) {
+  currentSort = key;
+  document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+  renderTable(key);
+}
+
+renderTable('votes');
+</script>
 
 </body>
 </html>
